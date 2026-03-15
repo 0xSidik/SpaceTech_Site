@@ -112,12 +112,23 @@ body {
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   padding: 18px 40px;
-  display: flex; align-items: center; justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
   background: var(--nav-bg);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
-.nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+/* Logo : calé à gauche */
+.nav-brand {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; justify-self: start;
+}
+/* Actions (toggle + hamburger) : calées à droite */
+.nav-actions {
+  display: flex; align-items: center; gap: 10px;
+  justify-self: end;
+}
 .nav-logo-icon {
   width: 32px; height: 32px; border-radius: 50%;
   border: 1.5px solid var(--blue); background: var(--bg3);
@@ -125,7 +136,11 @@ nav {
 }
 .nav-brand-text { font-size: 16px; font-weight: 700; letter-spacing: 3px; color: var(--text); }
 .nav-brand-text span { color: var(--blue-light); }
-.nav-links { display: flex; gap: 28px; align-items: center; }
+/* Liens : parfaitement centrés dans la grille */
+.nav-links {
+  display: flex; gap: 28px; align-items: center;
+  justify-self: center;
+}
 .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 14px; letter-spacing: 0.3px; transition: color 0.2s; }
 .nav-links a:hover { color: var(--text); }
 .nav-cta {
@@ -426,6 +441,7 @@ footer {
   nav { padding: 16px 28px; }
   .nav-links { gap: 18px; }
   .nav-links a { font-size: 12px; }
+  nav { padding: 16px 28px; }
 
   /* Sections */
   section { padding: 80px 32px; }
@@ -513,6 +529,7 @@ footer {
 
   /* Hamburger menu (icône SVG) */
   .nav-hamburger {
+  display: none;
     display: flex;
     flex-direction: column;
     gap: 5px;

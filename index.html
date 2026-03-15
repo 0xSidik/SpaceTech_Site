@@ -85,10 +85,19 @@
     </a>
     <div class="nav-links" id="nav-links">
       <a href="#services">Services</a>
-      <a href="#tarifs">Tarifs</a>
       <a href="#process">Comment ça marche</a>
+      <a href="#tarifs">Tarifs</a>
       <a href="#contact" class="nav-cta">Devis gratuit</a>
     </div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Changer le thème" title="Changer le thème">
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" style="display:none">
+        <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+        <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
     <div class="nav-hamburger" id="hamburger" aria-label="Menu">
       <span></span>
       <span></span>
@@ -150,7 +159,7 @@
 
         <!-- Création de sites web -->
         <div class="svc-card">
-          <div class="svc-icon" style="background:#1A1F3A">
+          <div class="svc-icon" style="background:var(--svc-icon-web)">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               <rect x="2" y="4" width="18" height="14" rx="2" stroke="#4B5EE6" stroke-width="1.4"/>
               <line x1="2" y1="8" x2="20" y2="8" stroke="#4B5EE6" stroke-width="1"/>
@@ -171,7 +180,7 @@
 
         <!-- Réseaux & infrastructure -->
         <div class="svc-card">
-          <div class="svc-icon" style="background:#1A1535">
+          <div class="svc-icon" style="background:var(--svc-icon-net)">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               <circle cx="11" cy="11" r="4" stroke="#6B4FC8" stroke-width="1.4"/>
               <circle cx="4" cy="7" r="2" stroke="#6B4FC8" stroke-width="1"/>
@@ -195,7 +204,7 @@
 
         <!-- Maintenance informatique -->
         <div class="svc-card">
-          <div class="svc-icon" style="background:#0F1E1A">
+          <div class="svc-icon" style="background:var(--svc-icon-maint)">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               <rect x="3" y="5" width="16" height="12" rx="2" stroke="#1D9E75" stroke-width="1.4"/>
               <line x1="3" y1="9" x2="19" y2="9" stroke="#1D9E75" stroke-width="0.9"/>
@@ -215,7 +224,7 @@
 
         <!-- Cybersécurité -->
         <div class="svc-card">
-          <div class="svc-icon" style="background:#1A1020">
+          <div class="svc-icon" style="background:var(--svc-icon-sec)">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               <path d="M11 3 L18 6.5 L18 13 Q18 18 11 20 Q4 18 4 13 L4 6.5 Z" stroke="#BA7517" stroke-width="1.4" stroke-linejoin="round"/>
               <path d="M8 11 L10.5 13.5 L14 9" stroke="#BA7517" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -233,7 +242,7 @@
 
         <!-- Formation -->
         <div class="svc-card">
-          <div class="svc-icon" style="background:#0F1E28">
+          <div class="svc-icon" style="background:var(--svc-icon-train)">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               <circle cx="11" cy="8" r="3.5" stroke="#378ADD" stroke-width="1.4"/>
               <path d="M4 19 Q4 14 11 14 Q18 14 18 19" stroke="#378ADD" stroke-width="1.4" stroke-linecap="round"/>
@@ -251,7 +260,7 @@
 
         <!-- Freelance & SaaS -->
         <div class="svc-card">
-          <div class="svc-icon" style="background:#1A1520">
+          <div class="svc-icon" style="background:var(--svc-icon-free)">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               <rect x="2" y="6" width="18" height="13" rx="2" stroke="#D4537E" stroke-width="1.4"/>
               <path d="M8 6 L8 4 Q8 2 11 2 Q14 2 14 4 L14 6" stroke="#D4537E" stroke-width="1.2"/>
@@ -270,7 +279,7 @@
 
         <!-- Systèmes, Réseaux & Sécurité -->
         <div class="svc-card">
-          <div class="svc-icon" style="background:#0F1422">
+          <div class="svc-icon" style="background:var(--svc-icon-sys)">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               <rect x="2" y="3" width="18" height="11" rx="2" stroke="#4B5EE6" stroke-width="1.4"/>
               <line x1="2" y1="7" x2="20" y2="7" stroke="#4B5EE6" stroke-width="0.9"/>
@@ -294,7 +303,7 @@
 
         <!-- Développement Web & Mobile -->
         <div class="svc-card">
-          <div class="svc-icon" style="background:#0E1A30">
+          <div class="svc-icon" style="background:var(--svc-icon-dev)">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               <rect x="2" y="3" width="12" height="16" rx="2" stroke="#378ADD" stroke-width="1.4"/>
               <line x1="4" y1="7" x2="12" y2="7" stroke="#378ADD" stroke-width="0.9"/>
@@ -316,7 +325,7 @@
 
         <!-- Design Graphique -->
         <div class="svc-card">
-          <div class="svc-icon" style="background:#1A0F28">
+          <div class="svc-icon" style="background:var(--svc-icon-des)">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               <circle cx="11" cy="11" r="8" stroke="#9B60E0" stroke-width="1.4"/>
               <path d="M7 15 Q9 9 11 8 Q13 9 15 15" fill="none" stroke="#9B60E0" stroke-width="1.2" stroke-linecap="round"/>
@@ -337,7 +346,7 @@
 
         <!-- E-commerce & Produits Otaku -->
         <div class="svc-card">
-          <div class="svc-icon" style="background:#1A1020">
+          <div class="svc-icon" style="background:var(--svc-icon-sec)">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               <path d="M3 4 L5 4 L7 14 L17 14 L19 7 L6 7" stroke="#E05080" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
               <circle cx="9" cy="17" r="1.5" stroke="#E05080" stroke-width="1.2"/>
@@ -357,7 +366,7 @@
 
         <!-- Vente & Réparation Matériel -->
         <div class="svc-card">
-          <div class="svc-icon" style="background:#0F1E18">
+          <div class="svc-icon" style="background:var(--svc-icon-rep)">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               <rect x="3" y="5" width="16" height="10" rx="2" stroke="#1D9E75" stroke-width="1.4"/>
               <line x1="3" y1="9" x2="19" y2="9" stroke="#1D9E75" stroke-width="0.8"/>
@@ -379,7 +388,7 @@
 
         <!-- Maintenance & Solutions Digitales -->
         <div class="svc-card">
-          <div class="svc-icon" style="background:#1A1500">
+          <div class="svc-icon" style="background:var(--svc-icon-dig)">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               <circle cx="11" cy="11" r="4" stroke="#EF9F27" stroke-width="1.4"/>
               <path d="M11 2 L11 5" stroke="#EF9F27" stroke-width="1.4" stroke-linecap="round"/>
@@ -605,7 +614,7 @@
         <div class="contact-items">
 
           <!-- EMAIL cliquable -->
-          <a href="mailto:diabyspace@gmail.com" class="contact-item contact-item-link">
+          <a href="/cdn-cgi/l/email-protection#ef8b868e8d969c9f8e8c8aaf88828e8683c18c8082" class="contact-item contact-item-link">
             <div class="contact-item-icon">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <rect x="2" y="3" width="12" height="10" rx="2" stroke="#4B5EE6" stroke-width="1.2"/>
@@ -614,7 +623,7 @@
             </div>
             <div>
               <div class="contact-item-label">EMAIL</div>
-              <div class="contact-item-val">diabyspace@gmail.com</div>
+              <div class="contact-item-val"><span class="__cf_email__" data-cfemail="aecac7cfccd7dddecfcdcbeec9c3cfc7c280cdc1c3">[email&#160;protected]</span></div>
             </div>
             <div class="contact-item-arrow">↗</div>
           </a>
@@ -674,7 +683,7 @@
             </svg>
             WhatsApp
           </a>
-          <a href="mailto:diabyspace@gmail.com" class="contact-cta contact-cta-email">
+          <a href="/cdn-cgi/l/email-protection#fb9f929a9982888b9a989ebb9c969a9297d5989496" class="contact-cta contact-cta-email">
             <svg width="15" height="15" viewBox="0 0 16 16" fill="none" style="flex-shrink:0">
               <rect x="2" y="3" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.2"/>
               <path d="M2 6l6 4 6-4" stroke="currentColor" stroke-width="1"/>

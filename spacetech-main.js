@@ -1,3 +1,74 @@
+/* ── THÈME SOMBRE / CLAIR ── */
+(function initTheme() {
+  const btn    = document.getElementById('theme-toggle');
+  const moon   = btn?.querySelector('.icon-moon');
+  const sun    = btn?.querySelector('.icon-sun');
+  const root   = document.documentElement;
+  const KEY    = 'st-theme';
+
+  function applyTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    localStorage.setItem(KEY, theme);
+
+    if (theme === 'light') {
+      moon.style.display = 'none';
+      sun.style.display  = 'block';
+      btn.title = 'Passer en thème sombre';
+      btn.setAttribute('aria-label', 'Passer en thème sombre');
+    } else {
+      moon.style.display = 'block';
+      sun.style.display  = 'none';
+      btn.title = 'Passer en thème clair';
+      btn.setAttribute('aria-label', 'Passer en thème clair');
+    }
+
+    /* Mettre à jour les inline styles sensibles au thème */
+    const isLight = theme === 'light';
+
+    /* Nav background */
+    const nav = document.querySelector('nav');
+    if (nav) nav.style.background = '';
+
+    /* Contacts hardcodés */
+    document.querySelectorAll('.contact-item-val').forEach(el => {
+      el.style.color = isLight ? '#3B50D0' : '';
+    });
+
+    /* Stats items */
+    document.querySelectorAll('.stat-item').forEach(el => {
+      el.style.background = isLight ? '#fff' : '';
+      el.style.border     = isLight ? '1px solid #D4D9F0' : '';
+    });
+
+    /* Eshop section */
+    const eshop = document.getElementById('eshop');
+    if (eshop) eshop.style.background = isLight ? '#EEF1FC' : '';
+  }
+
+  /* Charger le thème sauvegardé ou préférence système */
+  const saved = localStorage.getItem(KEY);
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initial = saved || (prefersDark ? 'dark' : 'light');
+  applyTheme(initial);
+
+  /* Toggle au clic */
+  btn?.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme') || 'dark';
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+
+    /* Animation rotation du bouton */
+    btn.style.transform = 'rotate(360deg)';
+    setTimeout(() => { btn.style.transform = ''; }, 400);
+  });
+
+  /* Suivre les changements système si pas de préférence sauvegardée */
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!localStorage.getItem(KEY)) {
+      applyTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+})();
+
 /* ═══════════════════════════════════════════════
    SpaceTech · main.js v2.0
    Auteur  : Diaby · diabyspace@gmail.com

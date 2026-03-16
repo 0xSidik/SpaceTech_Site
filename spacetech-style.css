@@ -524,12 +524,22 @@ footer {
 @media (max-width: 640px) {
 
   /* Navigation : menu hamburger simple */
-  nav { padding: 12px 16px; }
+  nav {
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   .nav-links { display: none; }
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
 
   /* Hamburger menu (icône SVG) */
   .nav-hamburger {
-  display: none;
     display: flex;
     flex-direction: column;
     gap: 5px;

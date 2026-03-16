@@ -85,39 +85,7 @@ console.log(
 console.log('%c🔐 ID : ST-ABJ-2025-001', 'color:#1D9E75; font-weight:bold;');
 console.log('%c⚠️  Site protégé. Inspection malveillante interdite.', 'color:#E24B4A;');
 
-/* ── 2. CURSOR PERSONNALISÉ ── */
-(function customCursor() {
-  if (window.matchMedia('(hover: none)').matches) return;
-  const style = document.createElement('style');
-  style.textContent = `
-    #st-cursor { position:fixed; top:0; left:0; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); }
-    .cur-dot { width:6px; height:6px; background:#4B5EE6; border-radius:50%; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); }
-    .cur-ring { width:32px; height:32px; border:1.5px solid rgba(75,94,230,0.45); border-radius:50%; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); transition: width 0.3s, height 0.3s, border-color 0.3s; }
-    body.cursor-hover .cur-ring { width:48px; height:48px; border-color:rgba(75,94,230,0.8); }
-    * { cursor: none !important; }
-  `;
-  document.head.appendChild(style);
-
-  const el = document.createElement('div');
-  el.id = 'st-cursor';
-  el.innerHTML = '<div class="cur-dot"></div><div class="cur-ring"></div>';
-  document.body.appendChild(el);
-
-  let mx = 0, my = 0, cx = 0, cy = 0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-  document.querySelectorAll('a, button').forEach(i => {
-    i.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-    i.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-  });
-
-  (function loop() {
-    cx += (mx - cx) * 0.13;
-    cy += (my - cy) * 0.13;
-    el.style.left = cx + 'px';
-    el.style.top  = cy + 'px';
-    requestAnimationFrame(loop);
-  })();
-})();
+/* ── 2. CURSOR : souris système par défaut ── */
 
 /* ── 3. ÉTOILES PARALLAX + ÉTOILES FILANTES ── */
 (function initStars() {
@@ -178,25 +146,118 @@ console.log('%c⚠️  Site protégé. Inspection malveillante interdite.', 'col
 (function rotatingHero() {
   const h1 = document.querySelector('.hero h1');
   if (!h1) return;
-  const phrases = [
-    'Solutions <span class="hl">numériques</span><br>complètes pour votre<br><span class="hl2">entreprise.</span>',
-    'Développement <span class="hl">web</span> & mobile<br>pour votre<br><span class="hl2">croissance.</span>',
-    'Réseaux & <span class="hl">cybersécurité</span><br>pour votre<br><span class="hl2">infrastructure.</span>',
-    'Design & <span class="hl">identité visuelle</span><br>pour votre<br><span class="hl2">marque.</span>',
-  ];
-  let i = 0;
-  h1.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
 
-  setInterval(() => {
+  const phrases = [
+    { pre: 'Solutions ', hl: 'numériques', mid: ' complètes<br>pour votre ', end: 'entreprise.' },
+    { pre: 'Développement ', hl: 'web & mobile', mid: '<br>pour votre ', end: 'croissance.' },
+    { pre: 'Réseaux & ', hl: 'cybersécurité', mid: '<br>pour votre ', end: 'infrastructure.' },
+    { pre: 'Design & ', hl: 'identité visuelle', mid: '<br>pour votre ', end: 'marque.' },
+  ];
+
+  let idx = 0;
+  let typing = false;
+
+  /* Injecter le style du curseur clignotant */
+  const s = document.createElement('style');
+  s.textContent = `
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .hero-cursor { display:inline-block; width:3px; height:0.85em; background:var(--blue-light); margin-left:2px; vertical-align:middle; animation:blink 0.75s ease infinite; border-radius:1px; }
+    @keyframes heroLineIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+    .hero-line { display:inline; animation: heroLineIn 0.4s cubic-bezier(.22,1,.36,1) both; }
+  `;
+  document.head.appendChild(s);
+
+  function stripHTML(str) {
+    return str.replace(/<[^>]*>/g, '');
+  }
+
+  function typePhrase(phrase, done) {
+    if (typing) return;
+    typing = true;
+    const full = stripHTML(phrase.pre) + phrase.hl + stripHTML(phrase.mid).replace('<br>','') + phrase.end;
+    let charIdx = 0;
+    const speed = 38; // ms par caractère
+
+    /* Afficher la structure avec curseur */
+    function renderTyping(progress) {
+      const preLen   = stripHTML(phrase.pre).length;
+      const hlLen    = phrase.hl.length;
+      const midLen   = stripHTML(phrase.mid).replace('<br>','').length;
+      const endLen   = phrase.end.length;
+      const total    = preLen + hlLen + midLen + endLen;
+      const chars    = Math.round(progress * total);
+
+      let out = '';
+      let c = 0;
+
+      // Partie pré
+      const prePart = stripHTML(phrase.pre).slice(0, Math.min(chars - c, preLen));
+      out += prePart; c += preLen;
+
+      // Partie hl (colorée)
+      if (chars > c) {
+        const hlPart = phrase.hl.slice(0, Math.min(chars - c, hlLen));
+        if (hlPart) out += `<span class="hl">${hlPart}</span>`;
+        c += hlLen;
+      }
+
+      // Partie mid
+      if (chars > c) {
+        const midStr = stripHTML(phrase.mid).replace('<br>','');
+        const midPart = midStr.slice(0, Math.min(chars - c, midLen));
+        if (midPart) out += '<br>' + midPart;
+        c += midLen;
+      }
+
+      // Partie end (hl2)
+      if (chars > c) {
+        const endPart = phrase.end.slice(0, Math.min(chars - c, endLen));
+        if (endPart) out += `<span class="hl2">${endPart}</span>`;
+      }
+
+      h1.innerHTML = out + '<span class="hero-cursor"></span>';
+    }
+
+    renderTyping(0);
+    const timer = setInterval(() => {
+      charIdx++;
+      const progress = charIdx / full.length;
+      renderTyping(progress);
+      if (charIdx >= full.length) {
+        clearInterval(timer);
+        typing = false;
+        if (done) setTimeout(done, 2800);
+      }
+    }, speed);
+  }
+
+  function exitPhrase(done) {
+    h1.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
     h1.style.opacity = '0';
-    h1.style.transform = 'translateY(12px)';
+    h1.style.transform = 'translateY(-14px) scale(0.97)';
     setTimeout(() => {
-      i = (i + 1) % phrases.length;
-      h1.innerHTML = phrases[i];
-      h1.style.opacity = '1';
-      h1.style.transform = 'translateY(0)';
-    }, 450);
-  }, 4500);
+      h1.style.opacity = '0';
+      h1.style.transform = 'translateY(18px) scale(0.97)';
+      setTimeout(() => {
+        h1.style.transition = '';
+        h1.style.opacity = '1';
+        h1.style.transform = '';
+        if (done) done();
+      }, 80);
+    }, 300);
+  }
+
+  function loop() {
+    typePhrase(phrases[idx], () => {
+      exitPhrase(() => {
+        idx = (idx + 1) % phrases.length;
+        loop();
+      });
+    });
+  }
+
+  /* Démarrer après un court délai */
+  setTimeout(loop, 800);
 })();
 
 /* ── 5. SCROLL REVEAL ── */
